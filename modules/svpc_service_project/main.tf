@@ -59,32 +59,32 @@ module "project-factory" {
   disable_dependent_services        = var.disable_dependent_services
 }
 
-/******************************************
-  Setting API service accounts for shared VPC
- *****************************************/
-module "shared_vpc_access" {
-  source                             = "../shared_vpc_access"
-  host_project_id                    = var.shared_vpc
-  enable_shared_vpc_service_project  = true
-  service_project_id                 = module.project-factory.project_id
-  active_apis                        = module.project-factory.enabled_apis
-  shared_vpc_subnets                 = var.shared_vpc_subnets
-  service_project_number             = module.project-factory.project_number
-  lookup_project_numbers             = false
-  grant_services_security_admin_role = var.grant_services_security_admin_role
-}
+# /******************************************
+#   Setting API service accounts for shared VPC
+#  *****************************************/
+# module "shared_vpc_access" {
+#   source                             = "../shared_vpc_access"
+#   host_project_id                    = var.shared_vpc
+#   enable_shared_vpc_service_project  = true
+#   service_project_id                 = module.project-factory.project_id
+#   active_apis                        = module.project-factory.enabled_apis
+#   shared_vpc_subnets                 = var.shared_vpc_subnets
+#   service_project_number             = module.project-factory.project_number
+#   lookup_project_numbers             = false
+#   grant_services_security_admin_role = var.grant_services_security_admin_role
+# }
 
-/******************************************
-  Billing budget to create if amount is set
- *****************************************/
-module "budget" {
-  source        = "../budget"
-  create_budget = var.budget_amount != null
+# /******************************************
+#   Billing budget to create if amount is set
+#  *****************************************/
+# module "budget" {
+#   source        = "../budget"
+#   create_budget = var.budget_amount != null
 
-  projects                         = [module.project-factory.project_id]
-  billing_account                  = var.billing_account
-  amount                           = var.budget_amount
-  alert_spent_percents             = var.budget_alert_spent_percents
-  alert_pubsub_topic               = var.budget_alert_pubsub_topic
-  monitoring_notification_channels = var.budget_monitoring_notification_channels
-}
+#   projects                         = [module.project-factory.project_id]
+#   billing_account                  = var.billing_account
+#   amount                           = var.budget_amount
+#   alert_spent_percents             = var.budget_alert_spent_percents
+#   alert_pubsub_topic               = var.budget_alert_pubsub_topic
+#   monitoring_notification_channels = var.budget_monitoring_notification_channels
+# }
